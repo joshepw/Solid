@@ -19,17 +19,37 @@ class Descuento {
 
 // Correcto
 interface DescuentoInterface {
-    public function aplicarDescuento($monto);
+    public function aplicarDescuento($monto): float;
 }
 
-class DescuentoEstudiante implements DescuentoInterface {
-    public function aplicarDescuento($monto) {
-        return $monto * 0.8;
+class Estudiante implements DescuentoInterface {
+    public function aplicarDescuento($monto): float {
+        return $monto * 0.8; // 20%
     }
 }
 
-class DescuentoEmpleado implements DescuentoInterface {
-    public function aplicarDescuento($monto) {
-        return $monto * 0.9;
+class Empleado implements DescuentoInterface {
+    public function aplicarDescuento($monto): float {
+        return $monto * 0.9; // 10%
     }
 }
+
+class TerceraEdad extends Cliente implements DescuentoInterface {
+    public function aplicarDescuento($monto): float {
+		return 0.65; // 35%
+	}
+}
+
+class Cliente {
+
+}
+
+// AssertTrue
+$instance = new Estudiante();
+if ($instance instanceof DescuentoInterface) { // true
+	$instance->aplicarDescuento(100.00); // 80.0
+}
+
+// AssertFalse
+$instance = new Cliente();
+$instance instanceof DescuentoInterface; // false
