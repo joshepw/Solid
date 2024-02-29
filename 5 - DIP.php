@@ -6,7 +6,7 @@
  * Este principio establece que las dependencias deben ser sobre abstracciones y no sobre implementaciones. Aquí hay un ejemplo:
  */
 
- // Incorrecto
+// Incorrecto
 class Lampara {
     public function encender() {
         // lógica para encender la lámpara
@@ -26,20 +26,26 @@ class Interruptor {
 }
 
 // Correcto
-interface Dispositivo {
+interface DispositivoConInterruptor {
     public function encender();
 }
 
-class Lampara implements Dispositivo {
+class Lampara implements DispositivoConInterruptor {
     public function encender() {
         // lógica para encender la lámpara
+    }
+}
+
+class Ventilador implements DispositivoConInterruptor {
+	public function encender() {
+        // lógica para encender el ventilador
     }
 }
 
 class Interruptor {
     private $dispositivo;
 
-    public function __construct(Dispositivo $dispositivo) {
+    public function __construct(DispositivoConInterruptor $dispositivo) {
         $this->dispositivo = $dispositivo;
     }
 
